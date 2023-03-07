@@ -1,23 +1,54 @@
-import logo from './logo.svg';
+
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import './App.css';
 
+import NavBar from './components/NavBar';
+
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Account from './pages/Account';
+import Selling from './pages/Selling';
+import NewPost from './pages/NewPost';
+import EditPost from './pages/EditPost';
+import PostDetails from './pages/PostDetails';
+import EditAccount from './pages/EditAccount';
+
 function App() {
+
+  const getToken = () => {
+    return localStorage.getItem("authToken")
+  }
+
+  const LoggedIn = () => {
+    return getToken() ? <Outlet /> : <Navigate to={'/'} />
+  }
+
+  const NotLoggedIn = () => {
+    return !getToken() ? <Outlet /> : <Navigate to={'/'} />
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar/>
+
+      <Routes>
+          <Route path='/' element={<Home/>} />
+          <Route path='/post-details/:id' element={<PostDetails/>} />
+
+          <Route element={<LoggedIn/>} >
+              <Route path='/edit-profile/:id' element={<EditAccount/>} />
+              <Route path='/selling/:id' element={<Selling/>} />
+              <Route path='/profile/:id' element={<Account/>} />
+              <Route path='/new-post' element={<NewPost/>} />
+              <Route path='/posts' element={<EditPost/>} />
+          </Route>
+
+          <Route element={<NotLoggedIn/>} >
+              <Route path='/signup' element={<Signup/>} />
+              <Route path='/login' element={<Login/>} />
+          </Route>
+      </Routes>
     </div>
   );
 }
