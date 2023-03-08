@@ -41,7 +41,7 @@ function App() {
               <Route path='/selling/:id' element={<Selling/>} />
               <Route path='/profile/:id' element={<Account/>} />
               <Route path='/new-post' element={<NewPost/>} />
-              <Route path='/posts' element={<EditPost/>} />
+              <Route path='/edit-post/:id' element={<EditPost/>} />
           </Route>
 
           <Route element={<NotLoggedIn/>} >

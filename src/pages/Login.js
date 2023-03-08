@@ -2,7 +2,7 @@
 import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { AuthContext } from "../context/auth.context"
-import { post } from "../services/authService"
+import { postt } from "../services/authService"
 
 const Login = () => {
 
@@ -22,7 +22,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        post('/auth/login', thisUser)
+        postt('/auth/login', thisUser)
             .then((results) => {
                 navigate(`/`)
                 localStorage.setItem('authToken', results.data.token )

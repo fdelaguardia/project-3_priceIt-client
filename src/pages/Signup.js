@@ -1,9 +1,8 @@
 
 import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import { post } from "../services/authService"
+import { postt } from "../services/authService"
 import { AuthContext } from "../context/auth.context"
-import { LoadingContext } from "../context/loading.context"
 
 const Signup = () => {
 
@@ -24,7 +23,7 @@ const Signup = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        post('/auth/signup', newUser)
+        postt('/auth/signup', newUser)
             .then((results) => {
                 console.log("Created User", results.data)
                 navigate(`/`)
@@ -35,9 +34,9 @@ const Signup = () => {
             })
             .finally(() => {
                 authenticateUser()
-            })
+            }) 
     }
-
+ 
     return(
         <div>
             <h1>Signup</h1>

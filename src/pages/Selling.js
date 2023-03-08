@@ -12,10 +12,8 @@ const Selling = () => {
     const currentUser = useParams()
 
     useEffect(() => {
-        if (!posts.length) {
-            getPosts()
-        }
-    }, [])
+        getPosts()
+    }, [currentUser.id])
 
     return(
         <div className="posts-organization" >
@@ -25,8 +23,8 @@ const Selling = () => {
                     {
                         posts.map((post) => {
                             if(post.seller._id === currentUser.id){
-                                return (<Link onClick={() => setPost(post)} to={`/post-details/${post._id}`} className='posts-link' >
-                                            <div key={post._id} className="posts-display" >
+                                return (<Link key={post._id} onClick={() => setPost(post)} to={`/post-details/${post._id}`} className='posts-link' >
+                                            <div className="posts-display" >
                                                 <div className="img-div" >
                                                 <img src={post.postImages} alt="post" width='300px' />
                                                 </div>

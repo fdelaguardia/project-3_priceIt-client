@@ -11,7 +11,7 @@ export const get = (route) => {
   
 };
 
-export const post = (route, body) => {
+export const postt = (route, body) => {
   let token = localStorage.getItem("authToken");
 
   return axios.post(baseUrl + route, body, {

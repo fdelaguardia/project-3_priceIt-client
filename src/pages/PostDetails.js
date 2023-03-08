@@ -1,6 +1,7 @@
 
 import { useEffect, useContext } from "react"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, Link } from "react-router-dom"
+import { DateTime, Interval } from "luxon"
 
 import { LoadingContext } from "../context/loading.context"
 import { get } from "../services/authService"
@@ -23,10 +24,21 @@ const PostDetails = () => {
                 let newPosts = [...posts]
                 newPosts.splice( newPosts.findIndex((newPost) => newPost._id === results.data._id ) , 1 )
                 setPosts(newPosts)
-
                 navigate(`/selling/${user._id}`)
             })
     }
+
+    const getDiff = (time) => {
+        const now = new Date()
+        const created = DateTime.fromISO(time)
+        const diff = Interval.fromDateTimes(created, now )
+
+        if( Math.ceil(diff.length('days')) === 1 ){
+            return `Posted ${Math.ceil(diff.length('hours'))} hours ago `
+        } else {
+            return `Posted ${Math.ceil(diff.length('days'))} days ago `
+        }
+      }
 
     useEffect(() => {
         if(!post){
@@ -36,8 +48,6 @@ const PostDetails = () => {
 
     return(
         <div>
-            <h1>PostDetails</h1>
-
             {
                 post ?
                 <div>
@@ -46,16 +56,22 @@ const PostDetails = () => {
                     <h2>${post.price}</h2>
                     <h4>{post.description}</h4>
                     <h5>{post.condition}</h5>
+                    <h6>{getDiff(post.createdAt)}</h6>
 
                     <br/>
                     {
-                        user &&
-                        (checkOwner(post.seller._id, user._id)) 
-                        && 
-                        <div>
-                            <button>Edit Post</button>
-                            <button onClick={handleDelete} >Delete</button>
-                        </div>
+                        user && 
+                            <>
+                            {
+                                (checkOwner(post.seller._id, user._id)) 
+                            && 
+                            <div>
+                                <Link to={`/edit-post/${post._id}`} ><button>Edit Post</button></Link>
+                                <button onClick={handleDelete} >Delete</button>
+                            </div>
+                            }
+                            </>
+                        
                     }
                 </div>
                 : <h4>Loading...</h4>

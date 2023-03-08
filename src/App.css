@@ -1,13 +1,13 @@
 .App {
   text-align: center;
+  /* background-color: #1c1e21; */
 }
 /* Navigation Bar */
 .nav-bar {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  background-color: #BF40BF;
-  border:solid;
+  background-color: #fe019a;
   border-radius: 20px;
 }
 .row {
@@ -44,7 +44,7 @@
   text-decoration: none;
 }
 .posts-display {
-  border: solid #BF40BF;
+  border: solid #fe019a;
   height: 25vw;
   width: 20vw;
   display: flex;
@@ -52,6 +52,7 @@
   align-items: flex-start;
   border-radius: 2vw;
   overflow: hidden;
+  background-color: #bea8b9;
 }
 .posts-display img {
   max-height: 100%;
@@ -59,7 +60,7 @@
   object-fit: contain;
 }
 .img-div {
-  background-color: grey;
+  background-color: #2e3031;
   height: 70%;
   width: 20vw;
   display: flex;
@@ -76,4 +77,17 @@
   white-space: nowrap;
   font-size: 1.5vw;
   margin: 1vw;
+}
+
+
+
+
+
+
+/* Home */
+.searchBar {
+  border: 1px solid #fe019a;
+  border-radius: 100px;
+  padding: 10px 20px;
+  width: 60vw;
 }

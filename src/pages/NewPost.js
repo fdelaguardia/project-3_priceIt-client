@@ -3,7 +3,7 @@ import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { LoadingContext } from "../context/loading.context"
-import { post } from "../services/authService"
+import { postt } from "../services/authService"
 
 const NewPost = () => {
 
@@ -28,7 +28,7 @@ const NewPost = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        post(`/posts/create-post/${user._id}`, newPost)
+        postt(`/posts/create-post/${user._id}`, newPost)
             .then((results) => {
                 console.log(results.data)
                 let newPosts = [...posts]

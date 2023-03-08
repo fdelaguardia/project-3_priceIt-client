@@ -24,6 +24,7 @@ const LoadingProvider = ({ children }) => {
         get('/posts')
             .then((results) => {
                 setPosts(results.data)
+                
             })
             .catch((err) => {
                 console.log(err)

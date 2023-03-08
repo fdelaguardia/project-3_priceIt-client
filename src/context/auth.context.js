@@ -6,7 +6,7 @@ import { LoadingContext } from "./loading.context";
 const AuthContext = createContext()
 
 const AuthProvider = ({children}) => {
-    const { setIsLoading, setUser, setMessage, user, message } = useContext(LoadingContext)
+    const { setIsLoading, setUser, setMessage } = useContext(LoadingContext)
 
     const navigate = useNavigate();
 
@@ -33,7 +33,6 @@ const AuthProvider = ({children}) => {
         } else {
             localStorage.clear()
             setIsLoading(false)
-            setUser(null)
         }
     }
 
