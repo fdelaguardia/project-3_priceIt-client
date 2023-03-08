@@ -26,7 +26,7 @@ const Selling = () => {
                                 return (<Link key={post._id} onClick={() => setPost(post)} to={`/post-details/${post._id}`} className='posts-link' >
                                             <div className="posts-display" >
                                                 <div className="img-div" >
-                                                <img src={post.postImages} alt="post" width='300px' />
+                                                    <img src={post.postImages} alt="post" width='300px' />
                                                 </div>
                                                 <div className="p-div" >
                                                     <p>{post.title}</p>

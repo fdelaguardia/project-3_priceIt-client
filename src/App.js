@@ -13,6 +13,7 @@ import NewPost from './pages/NewPost';
 import EditPost from './pages/EditPost';
 import PostDetails from './pages/PostDetails';
 import EditAccount from './pages/EditAccount';
+import PublicProfile from './pages/PublicProfile';
 
 function App() {
 
@@ -37,11 +38,12 @@ function App() {
           <Route path='/post-details/:id' element={<PostDetails/>} />
 
           <Route element={<LoggedIn/>} >
-              <Route path='/edit-profile/:id' element={<EditAccount/>} />
+              <Route path='/new-post' element={<NewPost/>} />
               <Route path='/selling/:id' element={<Selling/>} />
               <Route path='/profile/:id' element={<Account/>} />
-              <Route path='/new-post' element={<NewPost/>} />
               <Route path='/edit-post/:id' element={<EditPost/>} />
+              <Route path='/edit-profile/:id' element={<EditAccount/>} />
+              <Route path='/public-profile/:id' element={<PublicProfile/>} />
           </Route>
 
           <Route element={<NotLoggedIn/>} >

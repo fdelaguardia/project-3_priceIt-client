@@ -56,8 +56,8 @@ const PostDetails = () => {
                     <h2>${post.price}</h2>
                     <h4>{post.description}</h4>
                     <h5>{post.condition}</h5>
-                    <h6>{getDiff(post.createdAt)}</h6>
-
+                    <h5>{getDiff(post.createdAt)}</h5>
+                    <Link to={`/public-profile/${post._id}`} ><button>{post.seller.firstName}</button></Link>
                     <br/>
                     {
                         user && 
