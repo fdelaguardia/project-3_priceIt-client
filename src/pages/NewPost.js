@@ -50,28 +50,30 @@ const NewPost = () => {
     }
 
     return(
-        <div>
-            <h1>New Post</h1>
+        <div className="profile-outer" >
+            <h2>Add Item</h2>
             {
                 user ?
                     <form onSubmit={handleSubmit}>
+                        <div className="new-item-info" >
+                            <label>Post Images
+                            <input type='text' name='postImages' value={newPost.postImages} onChange={handleChange} />
+                            </label>
+                            <label>Title
+                            <input type='text' name='title' value={newPost.title} onChange={handleChange} />
+                            </label>
+                            <label>Price
+                            <input type='number' name='price' value={newPost.price} onChange={handleChange} />
+                            </label>
+                            <label>Description
+                            <textarea name='description' value={newPost.description} onChange={handleChange} rows={10} cols={22} />
+                            </label>
+                            <label>Condition
+                            <input type='text' name='condition' value={newPost.condition} onChange={handleChange} />
+                            </label>
+                        </div>
 
-                        <label>Title</label>
-                        <input type='text' name='title' value={newPost.title} onChange={handleChange} />
-                        <br/>
-                        <label>Price</label>
-                        <input type='number' name='price' value={newPost.price} onChange={handleChange} />
-                        <br/>
-                        <label>Description</label>
-                        <textarea name='description' value={newPost.description} onChange={handleChange} />
-                        <br/>
-                        <label>Condition</label>
-                        <input type='text' name='condition' value={newPost.condition} onChange={handleChange} />
-                        <br/>
-                        <label>Post Images</label>
-                        <input type='text' name='postImages' value={newPost.postImages} onChange={handleChange} />
-                        <br/>
-                        <button type="submit">Add Item</button>
+                        <button type="submit" className="new-item-button" ><h4>Submit</h4></button>
                     </form>
                 :
                     <h4>Loading...</h4>

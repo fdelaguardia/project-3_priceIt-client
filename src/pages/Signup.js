@@ -10,8 +10,12 @@ const Signup = () => {
 
     const [ newUser, setNewUser ] = useState({
         firstName: "",
+        lastName: "",
         email: "",
-        password: ""
+        state: "",
+        city: "",
+        profileImage: "",
+        password: "",
     })
 
     const navigate = useNavigate()
@@ -42,8 +46,20 @@ const Signup = () => {
             <h1>Signup</h1>
             <form onSubmit={handleSubmit} >
 
+                <label>Profile Image </label>
+                <input type='text' name="profileImage" value={newUser.profileImage} onChange={handleChange} />
+                <br/>
                 <label>First Name </label>
                 <input type='text' name="firstName" value={newUser.firstName} onChange={handleChange} />
+                <br/>
+                <label>Last Name </label>
+                <input type='text' name="lastName" value={newUser.lastName} onChange={handleChange} />
+                <br/>
+                <label>State </label>
+                <input type='text' name="state" value={newUser.state} onChange={handleChange} />
+                <br/>
+                <label>City </label>
+                <input type='text' name="city" value={newUser.city} onChange={handleChange} />
                 <br/>
                 <label>Email </label>
                 <input type='email' name="email" value={newUser.email} onChange={handleChange} />

@@ -57,7 +57,14 @@ const PostDetails = () => {
                     <h4>{post.description}</h4>
                     <h5>{post.condition}</h5>
                     <h5>{getDiff(post.createdAt)}</h5>
-                    <Link to={`/public-profile/${post._id}`} ><button>{post.seller.firstName}</button></Link>
+                    {
+                        (checkOwner(post.seller._id, user._id)) ?
+
+                        <Link to={`/selling/${user._id}`} ><button>{post.seller.firstName}</button></Link>
+                        :
+                        <Link to={`/public-profile/${post._id}`} ><button>{post.seller.firstName}</button></Link>
+                    }
+                    
                     <br/>
                     {
                         user && 

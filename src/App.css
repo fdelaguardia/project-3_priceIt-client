@@ -1,13 +1,20 @@
+html {
+  /* background-color: #2e3031; */
+}
 .App {
   text-align: center;
-  /* background-color: #1c1e21; */
 }
+
+
+
+
+
 /* Navigation Bar */
 .nav-bar {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  background-color: #fe019a;
+  background-color: #7c3aed;
   border-radius: 20px;
 }
 .row {
@@ -44,7 +51,7 @@
   text-decoration: none;
 }
 .posts-display {
-  border: solid #fe019a;
+  border: 2px solid #7c3aed;
   height: 25vw;
   width: 20vw;
   display: flex;
@@ -52,7 +59,7 @@
   align-items: flex-start;
   border-radius: 2vw;
   overflow: hidden;
-  background-color: #bea8b9;
+  background-color: #b694f0;
 }
 .posts-display img {
   max-height: 100%;
@@ -77,6 +84,7 @@
   white-space: nowrap;
   font-size: 1.5vw;
   margin: 1vw;
+  color: black
 }
 
 
@@ -86,8 +94,167 @@
 
 /* Home */
 .searchBar {
-  border: 1px solid #fe019a;
+  border: 1px solid #7c3aed;
   border-radius: 100px;
   padding: 10px 20px;
   width: 60vw;
+  background-color: white;
+  color: #7c3aed;
+}
+
+
+
+
+
+/* Account Page */
+.profile-outer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.profile-img {
+  width: 300px;
+  height: 300px;
+  border-radius: 300px;
+  margin: 1%;
+  overflow: hidden;
+  position: relative;
+}
+.profile-img img{
+  min-width: 300px;
+  min-height: 300px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.profile-info {
+  background-color: #b694f0;
+  border-radius: 20px;
+  width: 300px;
+}
+.profile-h4 {
+  border: 2px solid #7c3aed;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  padding: 10px;
+  color: #7c3aed;
+}
+
+
+
+/* Edit Account Page */
+.profile-img-edit {
+  width: 250px;
+  height: 250px;
+  border-radius: 250px;
+  margin: 1%;
+  overflow: hidden;
+  position: relative;
+}
+.profile-img-edit img{
+  min-width: 250px;
+  min-height: 250px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.profile-outer h2 {
+  color: #7c3aed;
+  margin: 5px 5px 0 5px;
+}
+.profile-info-edit {
+  background-color: #b694f0;
+  border-radius: 20px;
+  width: 300px;
+  padding: 20px 20px;
+  display: flex;
+  flex-direction: column;
+}
+.profile-info-edit span {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 20px;
+  margin: 5px;
+  padding: 5px;
+}
+.profile-info-edit input {
+  border: 2px solid #7c3aed;
+  border-radius: 20px;
+  font-size: 13px;
+  margin: 0;
+  padding: 5px;
+}
+.profile-button {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+.profile-button h4 {
+  margin-top: 5px;
+  border: 2px solid #7c3aed;
+  border-radius: 20px;
+  font-size: 20px;
+  color: #7c3aed;
+  padding: 5px 10px;
+}
+
+
+
+
+
+
+/* New Post Page */
+.new-item-info {
+  background-color: #b694f0;
+  border-radius: 20px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin-top: 10px;
+}
+.new-item-info label {
+  background-color: white;
+  border-radius: 20px;
+  width: 300px;
+  margin: 10px 0;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.new-item-info input {
+  border: 2px solid #7c3aed;
+  border-radius: 20px;
+  margin: 0;
+  padding: 5px;
+  width: 180px;
+}
+.new-item-info textarea {
+  border: 2px solid #7c3aed;
+  border-radius: 20px;
+  margin: 0;
+  padding: 5px;
+}
+.new-item-button {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+.new-item-button h4 {
+  margin-top: 15px;
+  border: 2px solid #7c3aed;
+  border-radius: 20px;
+  font-size: 20px;
+  color: #7c3aed;
+  padding: 5px 10px;
 }

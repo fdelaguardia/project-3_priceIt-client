@@ -9,6 +9,7 @@ const LoadingProvider = ({ children }) => {
     const [ user, setUser ] = useState(null)
     const [ message, setMessage ] = useState('')
 
+    const [ reviews, setReviews ] = useState([])
     const [ posts, setPosts ] = useState([])
     const [ post, setPost ] = useState(null)
 
@@ -42,7 +43,7 @@ const LoadingProvider = ({ children }) => {
     }
 
     return (
-        <LoadingContext.Provider value={{ posts, post, isLoading, message, setUser, user, setPost, setPosts, setIsLoading, setMessage, setTimedMessage, getPosts, getPost  }} >
+        <LoadingContext.Provider value={{ reviews, setReviews, posts, post, isLoading, message, setUser, user, setPost, setPosts, setIsLoading, setMessage, setTimedMessage, getPosts, getPost  }} >
             {children}
         </LoadingContext.Provider>
     )

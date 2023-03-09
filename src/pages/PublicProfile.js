@@ -1,14 +1,40 @@
 
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom"
 
 import { LoadingContext } from "../context/loading.context"
+import { postt } from "../services/authService"
 
 const PublicProfile = () => {
 
-    const { post, posts, setPost, getPost } = useContext(LoadingContext)
+    const [ newReview, setNewReview ] = useState({
+        rates: '',
+        review: '',
+    })
+
+    const { post, posts, setPost, getPost, user, reviews, setReviews } = useContext(LoadingContext)
 
     const { id } = useParams()
+
+    const handleChange = (e) => {
+        setNewReview((recent) => ({...recent, [e.target.name]: e.target.value}))
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        postt(`/reviews/create-review/${post.seller._id}`, newReview)
+            .then((results) => {
+                let newReviews = [...reviews] 
+                newReviews.unshift(results.data)
+                console.log(results.data)
+                setReviews(newReviews)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
+    }
 
     useEffect(() => {
         if(!post){
@@ -21,7 +47,6 @@ const PublicProfile = () => {
             <h1>Public Profile</h1>
 
             <hr/>
-            <h3>{post.seller._id}</h3>
             <h3>{post.seller.firstName}</h3>
             <h3>Contact Info: {post.seller.email}</h3>
             <hr/>
@@ -50,6 +75,42 @@ const PublicProfile = () => {
                 :
                 <h4>Loading...</h4>
             }</div>
+
+            
+            <details>
+                <summary>Reviews</summary>
+                <form onSubmit={handleSubmit} >
+                    <label>
+                        <p>Rate {post.seller.firstName}</p>
+                        <select name="rates" value={newReview.rates} onChange={handleChange} >
+                            <option value={'1'} >1</option>
+                            <option value={'2'} >2</option>
+                            <option value={'3'} >3</option>
+                            <option value={'4'} >4</option>
+                            <option value={'5'} >5</option>
+                        </select>
+                    </label>
+                    <input type='text' name="review" value={newReview.review} onChange={handleChange} placeholder='Write a review' />
+                    <button type="submit" >Send</button>
+                </form>
+
+                {
+                    reviews ?
+                    <>
+                        {reviews.map((foundReview) => {
+                            return (
+                                <div key={foundReview._id} >
+                                    <p>{user.firstName}</p>
+                                    <p>Rating: {foundReview.rates}</p>
+                                    <p>{foundReview.review}</p>
+                                </div>
+                            )
+                        })}
+                    </>
+                    : <h4>No Reviews Found</h4>
+                }
+
+            </details>
 
         </div>
     )

@@ -34,17 +34,40 @@ const EditAccount = () => {
     }
 
     return(
-        <div>
-            <h1>Edit Account Info</h1>
+        <div className="profile-outer" >
+            <h2>Edit Account Info</h2>
+            {
+                user &&
+                <>
+                    <div className="profile-img-edit" >
+                        <img src={user.profileImage} alt='profile' />
+                    </div>
+                    {/* <form onSubmit={(e) => e.preventDefault()} >
+                        <input type='text' name='profileImage' value={user.profileImage} onChange={handleImageChange} />
+                    </form> */}
+                </>
+                
+            }
             {
                 user &&
                 <>
                     <form onSubmit={handleSubmit} >
+                        <div className="profile-info-edit" >
+                            <span>Profile Image <input type='text' name='profileImage' value={user.profileImage} onChange={handleChange} /></span>
+                            
+                            <span>First Name <input type='text' name='firstName' value={user.firstName} onChange={handleChange} /></span>
+                            
+                            <span>Last Name <input type='text' name='lastName' value={user.lastName} onChange={handleChange} /></span>
+                            
+                            <span>Email <input type='email' name='email' value={user.email} onChange={handleChange} /></span>
+                            
+                            <span>State <input type='text' name='state' value={user.state} onChange={handleChange} /></span>
+                            
+                            <span>City <input type='text' name='city' value={user.city} onChange={handleChange} /></span>
+                            
+                        </div>
 
-                        <input type='text' name='firstName' value={user.firstName} onChange={handleChange} />
-                        <br/>
-
-                        <button type="submit" >Submit</button>
+                        <button className="profile-button" type="submit" ><h4>Submit</h4></button>
                     </form>
                 </>
                 
