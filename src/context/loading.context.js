@@ -35,15 +35,29 @@ const LoadingProvider = ({ children }) => {
     const getPost = (id) => {
         get(`/posts/post-detail/${id}`)
             .then((results) => {
+                console.log("reults data: ", results.data)
                 setPost(results.data)
+                setReviews(results.data.seller.reviews)
+                setPosts(results.data.seller.posts)
             })
             .catch((err) => {
                 console.log(err)
             })
     }
 
+    const getReviews = (id) => {
+        get(`/reviews/${id}`)
+            .then((results) => {
+                console.log("reults data: ", results.data)
+                setReviews(results.data)
+            })
+            .catch((err) => {
+                console.log("error: ", err)
+            })
+    }
+
     return (
-        <LoadingContext.Provider value={{ reviews, setReviews, posts, post, isLoading, message, setUser, user, setPost, setPosts, setIsLoading, setMessage, setTimedMessage, getPosts, getPost  }} >
+        <LoadingContext.Provider value={{ getReviews, reviews, setReviews, posts, post, isLoading, message, setUser, user, setPost, setPosts, setIsLoading, setMessage, setTimedMessage, getPosts, getPost  }} >
             {children}
         </LoadingContext.Provider>
     )

@@ -1,12 +1,15 @@
 
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { LoadingContext } from "../context/loading.context"
 import { AuthContext } from "../context/auth.context"
 import { postt } from "../services/authService"
+import axios from "axios"
 
 const EditAccount = () => {
+
+    const [ file, setFile ] = useState([])
 
     const { user, setUser } = useContext(LoadingContext)
     const { authenticateUser } = useContext(AuthContext) 
@@ -20,40 +23,58 @@ const EditAccount = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        postt(`/users/edit-profile/${user._id}`, user)
-            .then((results) => {
-                setUser(results.data)
-                navigate(`/profile/${user._id}`)
+        handleUpload()
+            .then((response) => {
+                postt(`/users/edit-profile/${user._id}`, {...user, profileImage: response})
+                    .then((results) => {
+                        setUser(results.data)
+                        navigate(`/profile/${user._id}`)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+                    .finally(() => {
+                        authenticateUser()
+                    })
             })
             .catch((err) => {
                 console.log(err)
             })
-            .finally(() => {
-                authenticateUser()
-            })
+            
+    }
+
+    const handleFile = (e) => {
+        setFile(e.target.files[0])
+    }
+
+    const handleUpload = async() => {
+        try {
+            const uploadData = new FormData()
+            uploadData.append('profileImage', file)
+            const response = await axios.post('http://localhost:4000/users/upload-image', uploadData)
+            console.log(response)
+            return(response.data.url)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return(
         <div className="profile-outer" >
-            <h2>Edit Account Info</h2>
             {
                 user &&
                 <>
                     <div className="profile-img-edit" >
                         <img src={user.profileImage} alt='profile' />
                     </div>
-                    {/* <form onSubmit={(e) => e.preventDefault()} >
-                        <input type='text' name='profileImage' value={user.profileImage} onChange={handleImageChange} />
-                    </form> */}
                 </>
-                
             }
             {
                 user &&
                 <>
                     <form onSubmit={handleSubmit} >
                         <div className="profile-info-edit" >
-                            <span>Profile Image <input type='text' name='profileImage' value={user.profileImage} onChange={handleChange} /></span>
+                            <span>Profile Image <input type='file' name='profileImage' onChange={handleFile} /></span>
                             
                             <span>First Name <input type='text' name='firstName' value={user.firstName} onChange={handleChange} /></span>
                             
@@ -65,9 +86,9 @@ const EditAccount = () => {
                             
                             <span>City <input type='text' name='city' value={user.city} onChange={handleChange} /></span>
                             
+                            <button className="profile-button" type="submit" ><h4>Edit Account</h4></button>
                         </div>
 
-                        <button className="profile-button" type="submit" ><h4>Submit</h4></button>
                     </form>
                 </>
                 

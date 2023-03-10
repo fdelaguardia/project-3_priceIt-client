@@ -24,8 +24,8 @@ const Login = () => {
 
         postt('/auth/login', thisUser)
             .then((results) => {
-                navigate(`/`)
                 localStorage.setItem('authToken', results.data.token )
+                navigate(`/`)
             })
             .catch((err) => {
                 console.log(err)
@@ -36,17 +36,20 @@ const Login = () => {
     }
 
     return(
-        <div>
-            <h1>Login</h1>
+        <div className="profile-outer" >
+            <h2>Login</h2>
             <form onSubmit={handleSubmit} >
+                <div className="new-item-info" >
+                    <label>Email
+                        <input type='email' name="email" value={thisUser.email} onChange={handleChange} />
+                    </label>
 
-                <label>Email</label>
-                <input type='email' name="email" value={thisUser.email} onChange={handleChange} />
-
-                <label>Password</label>
-                <input type='password' name="password" value={thisUser.password} onChange={handleChange} />
+                    <label>Password
+                        <input type='password' name="password" value={thisUser.password} onChange={handleChange} />
+                    </label>
+                    <button type="submit" className="new-item-button" ><h4>Login</h4></button>
+                </div>
                 
-                <button type="submit">Login</button>
             </form>
         </div>
     )

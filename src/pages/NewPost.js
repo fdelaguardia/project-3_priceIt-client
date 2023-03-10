@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom"
 
 import { LoadingContext } from "../context/loading.context"
 import { postt } from "../services/authService"
+import axios from "axios"
 
 const NewPost = () => {
+
+    const [ file, setFile ] = useState([])
 
     const { user, posts, setUser, setPosts } = useContext(LoadingContext)
 
@@ -17,7 +20,6 @@ const NewPost = () => {
             description: '',
             price: '',
             condition: '',
-            postImages: '',
         }
     )
 
@@ -28,25 +30,38 @@ const NewPost = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        postt(`/posts/create-post/${user._id}`, newPost)
-            .then((results) => {
-                console.log(results.data)
-                let newPosts = [...posts]
-                newPosts.unshift(results.data)
-                setPosts(newPosts)
-
-                let newUser = Object.assign({}, user)
-                newUser.posts.push(results.data)
-                setUser(newUser)
-
-                console.log(results.data)
-
-                navigate(`/post-details/${results.data._id}`)
+        handleUpload()
+            .then((response) => {
+                postt(`/posts/create-post/${user._id}`, {...newPost, postImages: response})
+                    .then((results) => {
+                        console.log(results.data)
+                        navigate(`/post-details/${results.data._id}`)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
             })
             .catch((err) => {
                 console.log(err)
             })
 
+    }
+
+    
+    const handleFile = (e) => {
+        setFile(e.target.files[0])
+    }
+
+    const handleUpload = async() => {
+        try {
+            const uploadData = new FormData()
+            uploadData.append('profileImage', file)
+            const response = await axios.post('http://localhost:4000/auth/upload-image', uploadData)
+            console.log(response)
+            return(response.data.url)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return(
@@ -57,7 +72,7 @@ const NewPost = () => {
                     <form onSubmit={handleSubmit}>
                         <div className="new-item-info" >
                             <label>Post Images
-                            <input type='text' name='postImages' value={newPost.postImages} onChange={handleChange} />
+                            <input type='file' name='postImages' value={newPost.postImages} onChange={handleFile} />
                             </label>
                             <label>Title
                             <input type='text' name='title' value={newPost.title} onChange={handleChange} />
@@ -71,9 +86,9 @@ const NewPost = () => {
                             <label>Condition
                             <input type='text' name='condition' value={newPost.condition} onChange={handleChange} />
                             </label>
+                            <button type="submit" className="new-item-button" ><h4>Submit</h4></button>
                         </div>
 
-                        <button type="submit" className="new-item-button" ><h4>Submit</h4></button>
                     </form>
                 :
                     <h4>Loading...</h4>

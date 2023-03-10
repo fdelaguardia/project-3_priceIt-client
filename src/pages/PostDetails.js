@@ -41,28 +41,36 @@ const PostDetails = () => {
       }
 
     useEffect(() => {
-        if(!post){
-            getPost(id)
-        }
+        getPost(id)
     }, [])
 
     return(
         <div>
             {
                 post ?
-                <div>
-                    <h2>{post.title}</h2>
-                    <img src={post.postImages} width={"500px"} />
-                    <h2>${post.price}</h2>
-                    <h4>{post.description}</h4>
-                    <h5>{post.condition}</h5>
-                    <h5>{getDiff(post.createdAt)}</h5>
-                    {
-                        (checkOwner(post.seller._id, user._id)) ?
+                <div className="post-details-organization" >
+                    <div className="post-details-img" >
+                        <img src={post.postImages} width={"500px"} />
+                    </div>
 
-                        <Link to={`/selling/${user._id}`} ><button>{post.seller.firstName}</button></Link>
-                        :
-                        <Link to={`/public-profile/${post._id}`} ><button>{post.seller.firstName}</button></Link>
+                    <div className="post-details" >
+                        <h2>{post.title}</h2>
+                        <h2>${post.price}</h2>
+                        <h3>{getDiff(post.createdAt)}</h3>
+                        <h3>Condition: {post.condition}</h3>
+                        <h3>Description:</h3>
+                        <h4>{post.description}</h4>
+                    </div>
+                    {   user && 
+                        <>
+                        {
+                            (checkOwner(post.seller._id, user._id)) ?
+
+                            <Link to={`/selling/${user._id}`} ><button>{post.seller.firstName}</button></Link>
+                            :
+                            <Link to={`/public-profile/${post._id}`} ><button>{post.seller.firstName}</button></Link>
+                        }
+                        </>
                     }
                     
                     <br/>
@@ -73,7 +81,7 @@ const PostDetails = () => {
                                 (checkOwner(post.seller._id, user._id)) 
                             && 
                             <div>
-                                <Link to={`/edit-post/${post._id}`} ><button>Edit Post</button></Link>
+                                <Link to={`/edit-post/${post._id}`} ><button>Edit Post{post._id}</button></Link>
                                 <button onClick={handleDelete} >Delete</button>
                             </div>
                             }

@@ -19,9 +19,11 @@ const Account = () => {
                     <div className="profile-info" >
                         <h3>{user.firstName} {user.lastName}</h3>
                         <h4>Email:<br/> <u>{user.email}</u></h4>
-                        <h4>Location:<br/> <u>{user.city}, {user.state}</u></h4>                        
+                        <h4>Location:<br/> <u>{user.city}, {user.state}</u></h4>   
+                        <div className="profile-h4" >
+                            <Link to={`/edit-profile/${user._id}`} className='link-decoration' ><h4>Edit Account Info</h4></Link>
+                        </div>              
                     </div>
-                        <Link to={`/edit-profile/${user._id}`} className='link-decoration' ><h4 className="profile-h4" >Edit Account Info</h4></Link>
 
                 </div>
                 

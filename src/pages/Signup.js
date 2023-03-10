@@ -3,10 +3,13 @@ import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { postt } from "../services/authService"
 import { AuthContext } from "../context/auth.context"
+import axios from 'axios'
 
 const Signup = () => {
 
     const { authenticateUser } = useContext(AuthContext)
+
+    const [ file, setFile ] = useState([])
 
     const [ newUser, setNewUser ] = useState({
         firstName: "",
@@ -14,7 +17,6 @@ const Signup = () => {
         email: "",
         state: "",
         city: "",
-        profileImage: "",
         password: "",
     })
 
@@ -24,14 +26,16 @@ const Signup = () => {
         setNewUser((recent) => ({...recent, [e.target.name]: e.target.value}))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit =  (e) => {
         e.preventDefault()
-
-        postt('/auth/signup', newUser)
+       handleUpload()
+            .then((response) => {
+                postt('/auth/signup',  {...newUser, profileImage: response})
+            })
             .then((results) => {
-                console.log("Created User", results.data)
-                navigate(`/`)
-                localStorage.setItem('authToken', results.data.token )
+                console.log("Created User", results)
+                navigate(`/login`)
+              
             })
             .catch((err) => {
                 console.log(err)
@@ -40,34 +44,58 @@ const Signup = () => {
                 authenticateUser()
             }) 
     }
+
+    const handleFile = (e) => {
+        setFile(e.target.files[0])
+    }
+
+    const handleUpload = async() => {
+        try {
+            const uploadData = new FormData()
+            uploadData.append('profileImage', file)
+            const response = await axios.post('http://localhost:4000/auth/upload-image', uploadData)
+            console.log(response)
+            return(response.data.url)
+        } catch (error) {
+            console.log(error)
+        }
+    }
  
     return(
-        <div>
-            <h1>Signup</h1>
+        <div className="profile-outer" >
+            <h2>Sign Up</h2>
             <form onSubmit={handleSubmit} >
+                <div className="new-item-info" >
+                    <label>Profile Image 
+                        <input type='file' name="profileImage" onChange={handleFile} />  
+                    </label>
 
-                <label>Profile Image </label>
-                <input type='text' name="profileImage" value={newUser.profileImage} onChange={handleChange} />
-                <br/>
-                <label>First Name </label>
-                <input type='text' name="firstName" value={newUser.firstName} onChange={handleChange} />
-                <br/>
-                <label>Last Name </label>
-                <input type='text' name="lastName" value={newUser.lastName} onChange={handleChange} />
-                <br/>
-                <label>State </label>
-                <input type='text' name="state" value={newUser.state} onChange={handleChange} />
-                <br/>
-                <label>City </label>
-                <input type='text' name="city" value={newUser.city} onChange={handleChange} />
-                <br/>
-                <label>Email </label>
-                <input type='email' name="email" value={newUser.email} onChange={handleChange} />
-                <br/>
-                <label>Password </label>
-                <input type='password' name="password" value={newUser.password} onChange={handleChange} />
-                <br/>
-                <button type="submit" >Sign Up</button>
+                    <label>First Name 
+                        <input type='text' name="firstName" value={newUser.firstName} onChange={handleChange} />    
+                    </label>
+
+                    <label>Last Name 
+                        <input type='text' name="lastName" value={newUser.lastName} onChange={handleChange} />  
+                    </label>
+
+                    <label>State 
+                        <input type='text' name="state" value={newUser.state} onChange={handleChange} />    
+                    </label>
+
+                    <label>City 
+                        <input type='text' name="city" value={newUser.city} onChange={handleChange} />  
+                    </label>
+
+                    <label>Email 
+                        <input type='email' name="email" value={newUser.email} onChange={handleChange} />   
+                    </label>
+
+                    <label>Password 
+                        <input type='password' name="password" value={newUser.password} onChange={handleChange} />  
+                    </label>
+                    <button type="submit" className="new-item-button" ><h4>Sign Up</h4></button>
+                </div>
+
             </form>
         </div>
     )

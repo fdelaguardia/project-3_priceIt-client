@@ -12,7 +12,7 @@ const PublicProfile = () => {
         review: '',
     })
 
-    const { post, posts, setPost, getPost, user, reviews, setReviews } = useContext(LoadingContext)
+    const { post, posts, setPost, getPost, user, reviews, setReviews, getReviews } = useContext(LoadingContext)
 
     const { id } = useParams()
 
@@ -37,18 +37,18 @@ const PublicProfile = () => {
     }
 
     useEffect(() => {
-        if(!post){
-            getPost(id)
-        }
+        getPost(id)
     }, [])
+
+    
 
     return(
         <div>
             <h1>Public Profile</h1>
 
             <hr/>
-            <h3>{post.seller.firstName}</h3>
-            <h3>Contact Info: {post.seller.email}</h3>
+            <h3>{post && post.seller.firstName}</h3>
+            <h3>Contact Info: {post && post.seller.email}</h3>
             <hr/>
 
             <div className="posts-organization" >{
@@ -56,7 +56,7 @@ const PublicProfile = () => {
                 <>
                     {
                         posts.map((matchingPost) => {
-                            if(matchingPost.seller._id === post.seller._id){
+                           
                                 return (<Link key={matchingPost._id} onClick={() => setPost(matchingPost)} to={`/post-details/${matchingPost._id}`} className='posts-link' >
                                             <div className="posts-display" >
                                                 <div className="img-div" >
@@ -68,7 +68,7 @@ const PublicProfile = () => {
                                                 </div>
                                             </div>
                                         </Link>)
-                            }
+                            
                         })
                     }
                 </>
@@ -81,13 +81,13 @@ const PublicProfile = () => {
                 <summary>Reviews</summary>
                 <form onSubmit={handleSubmit} >
                     <label>
-                        <p>Rate {post.seller.firstName}</p>
+                        <p>Rate {post && post.seller.firstName}</p>
                         <select name="rates" value={newReview.rates} onChange={handleChange} >
-                            <option value={'1'} >1</option>
-                            <option value={'2'} >2</option>
-                            <option value={'3'} >3</option>
-                            <option value={'4'} >4</option>
-                            <option value={'5'} >5</option>
+                            <option value={'★☆☆☆☆'} >1</option>
+                            <option value={'★★☆☆☆'} >2</option>
+                            <option value={'★★★☆☆'} >3</option>
+                            <option value={'★★★★☆'} >4</option>
+                            <option value={'★★★★★'} >5</option>
                         </select>
                     </label>
                     <input type='text' name="review" value={newReview.review} onChange={handleChange} placeholder='Write a review' />
