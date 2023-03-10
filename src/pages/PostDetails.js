@@ -58,20 +58,21 @@ const PostDetails = () => {
                         <h2>${post.price}</h2>
                         <h3>{getDiff(post.createdAt)}</h3>
                         <h3>Condition: {post.condition}</h3>
-                        <h3>Description:</h3>
-                        <h4>{post.description}</h4>
-                    </div>
-                    {   user && 
-                        <>
-                        {
-                            (checkOwner(post.seller._id, user._id)) ?
-
-                            <Link to={`/selling/${user._id}`} ><button>{post.seller.firstName}</button></Link>
-                            :
-                            <Link to={`/public-profile/${post._id}`} ><button>{post.seller.firstName}</button></Link>
+                        {   user && 
+                            <>
+                            {
+                                <Link to={`/public-profile/${post._id}`} className='link-row' >
+                                    <div className="post-details-user-img" >
+                                        <img src={post.seller.profileImage} alt='seller' />
+                                    </div>
+                                    <button className="post-details-user-button" ><h4>{post.seller.firstName}</h4></button>
+                                </Link>
+                            }
+                            </>
                         }
-                        </>
-                    }
+                        <h3>Description:</h3>
+                        <textarea>{post.description}</textarea>
+                    </div>
                     
                     <br/>
                     {
@@ -80,9 +81,9 @@ const PostDetails = () => {
                             {
                                 (checkOwner(post.seller._id, user._id)) 
                             && 
-                            <div>
-                                <Link to={`/edit-post/${post._id}`} ><button>Edit Post{post._id}</button></Link>
-                                <button onClick={handleDelete} >Delete</button>
+                            <div className="edit-delete-btn">
+                                <Link to={`/edit-post/${post._id}`} ><button>Edit Post</button></Link>
+                                <span><button onClick={handleDelete} >Delete</button></span>
                             </div>
                             }
                             </>

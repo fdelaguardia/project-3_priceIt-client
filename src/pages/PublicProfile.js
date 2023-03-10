@@ -8,7 +8,7 @@ import { postt } from "../services/authService"
 const PublicProfile = () => {
 
     const [ newReview, setNewReview ] = useState({
-        rates: '',
+        rates: '★☆☆☆☆',
         review: '',
     })
 
@@ -43,32 +43,35 @@ const PublicProfile = () => {
     
 
     return(
-        <div>
-            <h1>Public Profile</h1>
-
-            <hr/>
-            <h3>{post && post.seller.firstName}</h3>
-            <h3>Contact Info: {post && post.seller.email}</h3>
-            <hr/>
+        <div className="post-details-organization" >
+            <div className="public-details" >
+                {
+                    post &&
+                    <>
+                        <h3>{post.seller.firstName} {post.seller.lastName}</h3>
+                        <div className="post-details-user-img" ><img src={post.seller.profileImage} alt="profile" /></div>
+                        <h3>Location: {post.seller.city}, {post.seller.state} </h3>
+                        <h3>Contact Info: {post.seller.email}</h3>
+                    </>
+                }
+            </div>
 
             <div className="posts-organization" >{
                 posts ?
                 <>
                     {
                         posts.map((matchingPost) => {
-                           
-                                return (<Link key={matchingPost._id} onClick={() => setPost(matchingPost)} to={`/post-details/${matchingPost._id}`} className='posts-link' >
-                                            <div className="posts-display" >
-                                                <div className="img-div" >
-                                                    <img src={matchingPost.postImages} alt="post" width='300px' />
-                                                </div>
-                                                <div className="p-div" >
-                                                    <p>{matchingPost.title}</p>
-                                                    <p>${matchingPost.price}</p>
-                                                </div>
+                            return (<Link key={matchingPost._id} onClick={() => setPost(matchingPost)} to={`/post-details/${matchingPost._id}`} className='posts-link' >
+                                        <div className="posts-display" >
+                                            <div className="img-div" >
+                                                <img src={matchingPost.postImages} alt="post" width='300px' />
                                             </div>
-                                        </Link>)
-                            
+                                            <div className="p-div" >
+                                                <p>{matchingPost.title}</p>
+                                                <p>${matchingPost.price}</p>
+                                            </div>
+                                        </div>
+                                    </Link>)
                         })
                     }
                 </>
@@ -77,11 +80,12 @@ const PublicProfile = () => {
             }</div>
 
             
-            <details>
+            <details className="public-reviews" >
                 <summary>Reviews</summary>
+                
                 <form onSubmit={handleSubmit} >
                     <label>
-                        <p>Rate {post && post.seller.firstName}</p>
+                        <span className='public-form' >Rate {post && post.seller.firstName} </span>
                         <select name="rates" value={newReview.rates} onChange={handleChange} >
                             <option value={'★☆☆☆☆'} >1</option>
                             <option value={'★★☆☆☆'} >2</option>
@@ -89,27 +93,30 @@ const PublicProfile = () => {
                             <option value={'★★★★☆'} >4</option>
                             <option value={'★★★★★'} >5</option>
                         </select>
-                    </label>
-                    <input type='text' name="review" value={newReview.review} onChange={handleChange} placeholder='Write a review' />
-                    <button type="submit" >Send</button>
+                    </label><br/>
+                    <div className="public-form-span" >
+                        <input type='text' name="review" value={newReview.review} onChange={handleChange} placeholder='Write a review' />
+                        <button type="submit" >Send</button>
+                    </div>
+
                 </form>
 
-                {
-                    reviews ?
-                    <>
-                        {reviews.map((foundReview) => {
-                            return (
-                                <div key={foundReview._id} >
-                                    <p>{user.firstName}</p>
-                                    <p>Rating: {foundReview.rates}</p>
-                                    <p>{foundReview.review}</p>
-                                </div>
-                            )
-                        })}
-                    </>
-                    : <h4>No Reviews Found</h4>
-                }
-
+                <main className="public-reviews-main scroll" >
+                    {
+                        reviews ?
+                        <>
+                            {reviews.map((foundReview) => {
+                                return (
+                                    <div key={foundReview._id} >
+                                        <p>Rating: <span>{foundReview.rates}</span></p>
+                                        <p>{foundReview.review}</p>
+                                    </div>
+                                )
+                            })}
+                        </>
+                        : <h4>No Reviews Found</h4>
+                    }
+                </main>
             </details>
 
         </div>

@@ -63,26 +63,27 @@ const EditPost = () => {
     }, [])
 
     return(
-        <div>
+        <div className="post-details-organization" >
             <h1>Edit Post</h1>
 
             {
                 post ?
                 <div>
-                    <img src={post.postImages} height={"500px"} />
-                    
                     <form onSubmit={handleSubmit} >
-                        <input type='file' name="postImages" onChange={handleFile} />
-                        <br/>
-                        <input type='text' name="title" value={post.title} onChange={handleChange} />
-                        <br/>
-                        <input type='number' name='price' value={post.price} onChange={handleChange} />
-                        <br/>
-                        <textarea name="description" value={post.description} onChange={handleChange} />
-                        <br/>
-                        <input type='text' name='condition' value={post.condition} onChange={handleChange} />
-                        <br/>
-                        <button type="submit" >Update Item</button>
+                        <div className="edit-post-details" >
+                            <span>Post Image <input type='file' name="postImages" onChange={handleFile} /></span>
+
+                            <span>Title <input type='text' name="title" value={post.title} onChange={handleChange} /></span>
+
+                            <span>Price <input type='number' name='price' value={post.price} onChange={handleChange} /></span>
+
+                            <span>Condition <input type='text' name='condition' value={post.condition} onChange={handleChange} /></span>
+
+                            <span>Description <textarea name="description" value={post.description} onChange={handleChange} /></span>
+                            
+                            <button type="submit" className="edit-post-button" ><h4>Update Item</h4></button>
+                        </div>
+
                     </form>
                 </div>
                 : <h4>Loading...</h4>
