@@ -536,6 +536,17 @@ ul li ul li a {display:block !important;}
   padding: 5px;
   width: 180px;
 }
+.edit-post-details textarea {
+  border: 2px solid #7c3aed;
+  background-color: #fff;
+  color: #7c3aed;
+  border-radius: 20px;
+  width: 350px;
+  height: 100px;
+  margin: 0 0 20px 0;
+  text-align: left;
+  padding: 8px;
+}
 .edit-post-button {
   margin: 0;
   padding: 0;
