@@ -48,7 +48,7 @@ const EditPost = () => {
         try {
             const uploadData = new FormData()
             uploadData.append('postImages', file)
-            const response = await axios.post('http://localhost:4000/posts/upload-image', uploadData)
+            const response = await axios.post('https://priceit.fly.dev/posts/upload-image', uploadData)
             console.log(response)
             return(response.data.url)
         } catch (error) {

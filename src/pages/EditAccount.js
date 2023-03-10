@@ -51,7 +51,7 @@ const EditAccount = () => {
         try {
             const uploadData = new FormData()
             uploadData.append('profileImage', file)
-            const response = await axios.post('http://localhost:4000/users/upload-image', uploadData)
+            const response = await axios.post('https://priceit.fly.dev/users/upload-image', uploadData)
             console.log(response)
             return(response.data.url)
         } catch (error) {

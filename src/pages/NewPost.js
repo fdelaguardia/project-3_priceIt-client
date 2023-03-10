@@ -56,7 +56,7 @@ const NewPost = () => {
         try {
             const uploadData = new FormData()
             uploadData.append('profileImage', file)
-            const response = await axios.post('http://localhost:4000/auth/upload-image', uploadData)
+            const response = await axios.post('https://priceit.fly.dev/auth/upload-image', uploadData)
             console.log(response)
             return(response.data.url)
         } catch (error) {
