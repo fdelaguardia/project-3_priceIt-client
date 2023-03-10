@@ -35,7 +35,7 @@ const NewPost = () => {
                 postt(`/posts/create-post/${user._id}`, {...newPost, postImages: response})
                     .then((results) => {
                         console.log(results.data)
-                        navigate(`/post-details/${results.data._id}`)
+                        navigate(`/`)
                     })
                     .catch((err) => {
                         console.log(err)
